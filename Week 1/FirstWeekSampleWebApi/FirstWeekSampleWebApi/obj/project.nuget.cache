@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LGGTuirTbcNEv0mvV8ytnGiNk5NtEiIyUXVxV+gW7yoFhQz8id/nY6YNvd1lAOd3WyGL4gHKcFQD1I/rsnnWFQ==",
+  "dgSpecHash": "J3vS0Yl1ZXsC4F1lPOQHi5EDOjx5XN0DLE9vjIMtjvEZoPCx9FKmiCruM7SCJ3fuZTVT++kx27I79gjSdS4iYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
+  "projectFilePath": "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\furka\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\furka\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

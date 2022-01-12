@@ -20,19 +20,19 @@ namespace FirstWeekSampleWebApi.Controllers
             new Customer {ID=4,FirstName="Ayşe",LastName="Demir",Address="İstanbul"}
         };
 
-        [HttpGet]
+        [HttpGet] //Tüm müşterileri getirecek
         public List<Customer> GetCustomers()
         {
             return _customers;
         }
 
-        [HttpGet("id")]
+        [HttpGet("id")] //id'ye göre aranan müşteriyi getirecek
         public Customer GetCustomerById(int ID)
         {
             return _customers.FirstOrDefault(c => c.ID == ID);
         }
 
-        [HttpGet("search")]
+        [HttpGet("search")] //müşteri ismine göre aranan müşteriyi getirecek
         public IActionResult SearchCustomerByName(string name)
         {
             if (!string.IsNullOrEmpty(name))
@@ -46,7 +46,7 @@ namespace FirstWeekSampleWebApi.Controllers
             return BadRequest("Böyle bir müşteri bulunmadı.");
         }
 
-        [HttpPost]
+        [HttpPost]//müşteri ekleme
         public IActionResult AddCustomer(Customer customer)
         {
             if (_customers.FirstOrDefault(c => c.ID == customer.ID) == null)
@@ -57,7 +57,7 @@ namespace FirstWeekSampleWebApi.Controllers
             return BadRequest("Bu ID numaralı müşteri zaten var.");
         }
 
-        [HttpPut]
+        [HttpPut]//müşteri güncelleme
         public IActionResult UpdateCustomer(Customer customer)
         {
             var updatedCustomer = _customers.FirstOrDefault(c => c.ID == customer.ID);
@@ -72,7 +72,7 @@ namespace FirstWeekSampleWebApi.Controllers
             return BadRequest("Böyle bir müşteri bulunamadı.");
         }
 
-        [HttpDelete]
+        [HttpDelete]//müşteri silme
         public IActionResult DeleteCustomer(int ID)
         {
             var deletedCustomer = _customers.FirstOrDefault(c => c.ID == ID);

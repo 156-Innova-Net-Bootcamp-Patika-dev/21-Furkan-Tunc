@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj": {}
+    "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj": {
+    "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
+        "projectUniqueName": "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
         "projectName": "FirstWeekSampleWebApi",
-        "projectPath": "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
+        "projectPath": "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi.csproj",
         "packagesPath": "C:\\Users\\furka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\furka\\source\\repos\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\obj\\",
+        "outputPath": "C:\\Users\\furka\\Source\\Repos\\21-Furkan-Tunc\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\furka\\AppData\\Roaming\\NuGet\\NuGet.Config",
