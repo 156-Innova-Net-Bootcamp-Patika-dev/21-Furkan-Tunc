@@ -3,7 +3,9 @@
     "",
     "\\Week 1",
     "\\Week 1\\FirstWeekSampleWebApi",
-    "\\Week 2"
+    "\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi",
+    "\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\Controllers"
   ],
+  "SelectedNode": "\\Week 1\\FirstWeekSampleWebApi\\FirstWeekSampleWebApi\\Controllers\\CustomersController.cs",
   "PreviewInSolutionExplorer": false
 }
