@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Site.Infrastructure.Contracts.Persistence.Abstract
+namespace Site.Application.Contracts.Persistence.Repositories.Apartments
 {
     public interface IApartmentRepository:IRepositoryBase<Apartment>
     {

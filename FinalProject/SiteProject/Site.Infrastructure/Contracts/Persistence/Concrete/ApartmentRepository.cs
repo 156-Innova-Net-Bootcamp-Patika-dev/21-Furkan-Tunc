@@ -1,5 +1,5 @@
-﻿using Site.Domain.Entities;
-using Site.Infrastructure.Contracts.Persistence.Abstract;
+﻿using Site.Application.Contracts.Persistence.Repositories.Apartments;
+using Site.Domain.Entities;
 using Site.Infrastructure.Contracts.Persistence.Commons;
 using System;
 using System.Collections.Generic;

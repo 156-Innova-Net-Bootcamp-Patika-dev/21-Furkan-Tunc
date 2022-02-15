@@ -58,7 +58,13 @@ namespace Site.Api
 
             services.AddAuth(jwt);
             #endregion
-            
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost";
+                options.InstanceName = "SampleInstance";
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

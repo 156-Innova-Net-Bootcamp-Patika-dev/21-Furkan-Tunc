@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Site.Application.Features.Commands.Apartments.AddApartment;
 using Site.Application.Features.Commands.Authentications.SignUpUser;
 using Site.Application.Features.Commands.Users.AddUser;
+using Site.Application.Models.Apartment;
 using Site.Application.Models.Authentication;
 using Site.Domain.Authentication;
+using Site.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,9 @@ namespace Site.Application.Mapping
             CreateMap<User, SignUpUserCommand>().ReverseMap();
             CreateMap<User, UserModel>().ReverseMap();
             CreateMap<User, AddUserCommand>().ReverseMap();
+
+            CreateMap<Apartment, AddApartmentCommand>().ReverseMap();
+            CreateMap<ApartmentModel, Apartment>().ReverseMap();
         }
     }
 }

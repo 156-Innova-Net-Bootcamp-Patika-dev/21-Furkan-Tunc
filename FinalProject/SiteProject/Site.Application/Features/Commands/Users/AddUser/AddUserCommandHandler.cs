@@ -16,7 +16,7 @@ namespace Site.Application.Features.Commands.Users.AddUser
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        AddUserValidator _validator;
+        private readonly AddUserValidator _validator;
         Random _rnd;
 
         public AddUserCommandHandler(UserManager<User> userManager, IMapper mapper)
