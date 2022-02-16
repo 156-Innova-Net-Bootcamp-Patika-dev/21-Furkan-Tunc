@@ -12,12 +12,6 @@ namespace Site.Application.Features.Commands.Apartments.UpdateApartment
         public UpdateApartmentValidator()
         {
             RuleFor(a => a.Id).NotEmpty().GreaterThan(0);
-            RuleFor(a => a.ApartmentNumber).NotEmpty();
-            RuleFor(a => a.Blok).NotEmpty();
-            RuleFor(a => a.Floor).NotEmpty();
-            RuleFor(a => a.Status).NotEmpty();
-            RuleFor(a => a.Owner).NotEmpty();
-            RuleFor(a => a.Type).NotEmpty();
         }
     }
 }

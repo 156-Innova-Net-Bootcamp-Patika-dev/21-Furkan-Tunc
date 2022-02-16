@@ -4,6 +4,7 @@ using Site.Application.Features.Commands.Authentications.SignUpUser;
 using Site.Application.Features.Commands.Users.AddUser;
 using Site.Application.Models.Apartment;
 using Site.Application.Models.Authentication;
+using Site.Application.Models.User;
 using Site.Domain.Authentication;
 using Site.Domain.Entities;
 using System;
@@ -21,6 +22,7 @@ namespace Site.Application.Mapping
             CreateMap<User, SignUpUserCommand>().ReverseMap();
             CreateMap<User, UserModel>().ReverseMap();
             CreateMap<User, AddUserCommand>().ReverseMap();
+            CreateMap<GetUserModel, User>().ReverseMap();
 
             CreateMap<Apartment, AddApartmentCommand>().ReverseMap();
             CreateMap<ApartmentModel, Apartment>().ReverseMap();
