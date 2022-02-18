@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using Site.Application.Models.User;
 using Site.Domain.Authentication;
 using System;
@@ -17,20 +19,39 @@ namespace Site.Application.Features.Queries.Users.GetAllUsers
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _distributedCache;
 
-        public GetAllUsersQueryHandler(UserManager<User> userManager, IMapper mapper)
+        public GetAllUsersQueryHandler(UserManager<User> userManager, IMapper mapper, IDistributedCache distributedCache)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _distributedCache = distributedCache;
         }
 
         public async Task<List<GetUserModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _userManager.Users.ToListAsync();
+            string cacheKey = "GetAllUsers";
+            string json;
+            IReadOnlyList<User> users;
+            var usersFromCache = await _distributedCache.GetAsync(cacheKey);
 
-            var getUsers = _mapper.Map<List<GetUserModel>>(users);
-
-            return getUsers;
+            if (usersFromCache != null)
+            {
+                json = Encoding.UTF8.GetString(usersFromCache);
+                var usersCache = JsonConvert.DeserializeObject<List<GetUserModel>>(json);
+                return _mapper.Map<List<GetUserModel>>(usersCache);
+            }
+            else
+            {
+                users = await _userManager.Users.ToListAsync();
+                json = JsonConvert.SerializeObject(users);
+                usersFromCache = Encoding.UTF8.GetBytes(json);
+                var options = new DistributedCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
+                await _distributedCache.SetAsync(cacheKey, usersFromCache, options);
+                return _mapper.Map<List<GetUserModel>>(users);
+            }
         }
     }
 }

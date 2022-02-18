@@ -1,4 +1,5 @@
-﻿using Site.Domain.Entities.Commons;
+﻿using Site.Domain.Authentication;
+using Site.Domain.Entities.Commons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace Site.Domain.Entities
 {
     public class Apartment :EntityBase
     {
-        public string Blok { get; set; }
+        public byte Blok { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
-        public int Floor { get; set; }
-        public int ApartmentNumber { get; set; }
+        public byte Floor { get; set; }
+        public byte ApartmentNumber { get; set; }
         public string Owner { get; set; }
+        public User User { get; set; }
+        public int UserId { get; set; }
     }
 }

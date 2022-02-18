@@ -15,5 +15,6 @@ namespace Site.Application.Features.Commands.Users.AddUser
         public string Email { get; set; }
         public string Phone { get; set; }
         public string VehicleInformation { get; set; }
+        public int ApartmentId { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace Site.Application.Models.User
         public string Email { get; set; }
         public string TcNo { get; set; }
         public string VehicleInformation { get; set; }
+        public int ApartmentId { get; set; }
     }
 }

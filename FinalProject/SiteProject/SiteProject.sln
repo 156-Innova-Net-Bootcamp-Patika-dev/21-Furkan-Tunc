@@ -13,13 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentService", "PaymentSe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0015FDEE-0F0C-4363-BB7E-F2CC553456C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Domain", "Site.Domain\Site.Domain.csproj", "{D007BE85-7B6F-44A1-B58A-93FD6895E5ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site.Domain", "Site.Domain\Site.Domain.csproj", "{D007BE85-7B6F-44A1-B58A-93FD6895E5ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Infrastructure", "Site.Infrastructure\Site.Infrastructure.csproj", "{5B2D8EAA-2135-4759-B751-269DF49BEE44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site.Infrastructure", "Site.Infrastructure\Site.Infrastructure.csproj", "{5B2D8EAA-2135-4759-B751-269DF49BEE44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Application", "Site.Application\Site.Application.csproj", "{C78CEC67-1757-423A-8D70-C7C71971AA3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site.Application", "Site.Application\Site.Application.csproj", "{C78CEC67-1757-423A-8D70-C7C71971AA3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Api", "Site.Api\Site.Api.csproj", "{9E7F59BB-FB4A-4F96-942E-981FCC3D54FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Site.Api", "Site.Api\Site.Api.csproj", "{9E7F59BB-FB4A-4F96-942E-981FCC3D54FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

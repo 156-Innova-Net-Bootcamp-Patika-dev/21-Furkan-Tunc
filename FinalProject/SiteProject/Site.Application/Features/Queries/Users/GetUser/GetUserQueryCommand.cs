@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace Site.Application.Features.Queries.Users.GetUser
 {
@@ -19,25 +21,42 @@ namespace Site.Application.Features.Queries.Users.GetUser
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly GetUserValidator _validator;
+        private readonly IDistributedCache _distributedCache;
 
-        public GetUserQueryCommand(UserManager<User> userManager, IMapper mapper)
+        public GetUserQueryCommand(UserManager<User> userManager, IMapper mapper, IDistributedCache distributedCache)
         {
             _userManager = userManager;
             _mapper = mapper;
             _validator = new GetUserValidator();
+            _distributedCache = distributedCache;
         }
 
         public async Task<GetUserModel> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             await _validator.ValidateAndThrowAsync(request);
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.ID);
+            string cacheKey = "GetUser";
+            string json;
+            User user;
+            var userFromCache = await _distributedCache.GetAsync(cacheKey);
 
-            if(user == null)
-                throw new InvalidOperationException("There is no user with this id number.");
-
-            var userModel = _mapper.Map<GetUserModel>(user);
-            return userModel;
+            if (userFromCache != null)
+            {
+                json = Encoding.UTF8.GetString(userFromCache);
+                var userCache = JsonConvert.DeserializeObject<GetUserModel>(json);
+                return _mapper.Map<GetUserModel>(userCache);
+            }
+            else
+            {
+                user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.ID);
+                json = JsonConvert.SerializeObject(user);
+                userFromCache = Encoding.UTF8.GetBytes(json);
+                var options = new DistributedCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
+                await _distributedCache.SetAsync(cacheKey, userFromCache, options);
+                return _mapper.Map<GetUserModel>(user);
+            }
         }
     }
 }

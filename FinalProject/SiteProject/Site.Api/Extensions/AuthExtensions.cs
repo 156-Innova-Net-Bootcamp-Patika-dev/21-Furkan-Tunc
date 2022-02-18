@@ -13,6 +13,7 @@ namespace Site.Api.Extensions
 {
     public static class AuthExtensions
     {
+        //Jwt üzerinden kimlik doğrulaması yapılıyor
         public static IServiceCollection AddAuth(this IServiceCollection services, JwtSettings jwtSettings)
         {
             services.AddAuthentication(options =>

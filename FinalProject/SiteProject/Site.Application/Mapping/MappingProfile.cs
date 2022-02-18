@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Site.Application.Features.Commands.Apartments.AddApartment;
 using Site.Application.Features.Commands.Authentications.SignUpUser;
+using Site.Application.Features.Commands.Bills.AddBill;
 using Site.Application.Features.Commands.Users.AddUser;
 using Site.Application.Models.Apartment;
 using Site.Application.Models.Authentication;
 using Site.Application.Models.User;
 using Site.Domain.Authentication;
 using Site.Domain.Entities;
+using Site.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace Site.Application.Mapping
 
             CreateMap<Apartment, AddApartmentCommand>().ReverseMap();
             CreateMap<ApartmentModel, Apartment>().ReverseMap();
+
+            CreateMap<Bill, AddBillCommand>().ReverseMap().ForMember(dest => dest.Month, opt => opt.MapFrom(src => ((MonthEnum)src.Month).ToString()));
         }
     }
 }

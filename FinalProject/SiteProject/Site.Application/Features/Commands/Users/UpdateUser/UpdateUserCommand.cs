@@ -14,5 +14,6 @@ namespace Site.Application.Features.Commands.Users.UpdateUser
         public string LastName { get; set; }
         public string VehicleInformation { get; set; }
         public string PhoneNumber { get; set; }
+        public int ApartmentId { get; set; }
     }
 }

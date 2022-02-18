@@ -17,5 +17,13 @@ namespace Site.Infrastructure.Contracts.Persistence
 
         }
         public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<BillPayment> BillPayments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            base.OnModelCreating(builder);
+        }
     }
 }

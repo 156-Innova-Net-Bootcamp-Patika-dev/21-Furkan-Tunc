@@ -25,14 +25,11 @@ namespace Site.Api.Middlewares
             }
             catch (Exception ex)
             {
-                await HandleException(context, ex);
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
+                await context.Response.WriteAsync(result);
             }
-        }
-
-        private Task HandleException(HttpContext context, Exception ex)
-        {
-            var result = JsonConvert.SerializeObject(new { error = ex.Message }, Formatting.None);
-            return context.Response.WriteAsync(result);
         }
     }
 }
