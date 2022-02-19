@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using Site.Application.Contracts.Persistence.Repositories.Apartments;
 using Site.Domain.Entities;
 using System;
@@ -12,20 +13,22 @@ using System.Threading.Tasks;
 
 namespace Site.Application.Features.Commands.Apartments.UpdateApartment
 {
-    public class UpdateApartmentCommandHandler : IRequestHandler<UpdateApartmentCommand, int>
+    public class UpdateApartmentCommandHandler : IRequestHandler<UpdateApartmentCommand>
     {
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _distributedCache;
         private readonly UpdateApartmentValidator _validator;
 
-        public UpdateApartmentCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper)
+        public UpdateApartmentCommandHandler(IApartmentRepository apartmentRepository, IMapper mapper, IDistributedCache distributedCache)
         {
             _apartmentRepository = apartmentRepository;
             _mapper = mapper;
+            _distributedCache = distributedCache;
             _validator = new UpdateApartmentValidator();
         }
 
-        public async Task<int> Handle(UpdateApartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateApartmentCommand request, CancellationToken cancellationToken)
         {
             await _validator.ValidateAndThrowAsync(request);
 
@@ -42,7 +45,10 @@ namespace Site.Application.Features.Commands.Apartments.UpdateApartment
             apartment.Type = request.Type != default ? request.Type : apartment.Type;
 
             await _apartmentRepository.UpdateAsync(apartment);
-            return 1;
+            await _distributedCache.RemoveAsync("GetApartment");
+            await _distributedCache.RemoveAsync("GetAllApartments");
+
+            return Unit.Value;
         }
     }
 }

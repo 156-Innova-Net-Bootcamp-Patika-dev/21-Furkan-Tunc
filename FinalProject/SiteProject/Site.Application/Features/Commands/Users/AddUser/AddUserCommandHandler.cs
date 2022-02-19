@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Distributed;
 using Site.Domain.Authentication;
 using System;
 using System.Collections.Generic;
@@ -17,17 +18,20 @@ namespace Site.Application.Features.Commands.Users.AddUser
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly AddUserValidator _validator;
+        private readonly IDistributedCache _distributedCache;
         Random _rnd;
 
-        public AddUserCommandHandler(UserManager<User> userManager, IMapper mapper)
+        public AddUserCommandHandler(UserManager<User> userManager, IMapper mapper, IDistributedCache distributedCache)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _distributedCache = distributedCache;
             _validator = new AddUserValidator();
             _rnd = new Random();
         }
         public async Task<string> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
+            //Mailden kontrol et user var mı
             await _validator.ValidateAndThrowAsync(request);
 
             var user = _mapper.Map<User>(request);
@@ -40,12 +44,12 @@ namespace Site.Application.Features.Commands.Users.AddUser
             if (createdUser.Succeeded)
             {
                 var userEntity = _userManager.Users.SingleOrDefault(u => u.Email == request.Email);
-
+                await _distributedCache.RemoveAsync("GetAllUsers");
+                await _distributedCache.RemoveAsync("GetUser");
                 return pin;
             }
 
             return null;
-
         }
     }
 }

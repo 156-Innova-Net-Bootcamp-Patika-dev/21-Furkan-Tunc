@@ -16,14 +16,14 @@ using Newtonsoft.Json;
 
 namespace Site.Application.Features.Queries.Users.GetUser
 {
-    public class GetUserQueryCommand : IRequestHandler<GetUserQuery, GetUserModel>
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, GetUserModel>
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
         private readonly GetUserValidator _validator;
         private readonly IDistributedCache _distributedCache;
 
-        public GetUserQueryCommand(UserManager<User> userManager, IMapper mapper, IDistributedCache distributedCache)
+        public GetUserQueryHandler(UserManager<User> userManager, IMapper mapper, IDistributedCache distributedCache)
         {
             _userManager = userManager;
             _mapper = mapper;

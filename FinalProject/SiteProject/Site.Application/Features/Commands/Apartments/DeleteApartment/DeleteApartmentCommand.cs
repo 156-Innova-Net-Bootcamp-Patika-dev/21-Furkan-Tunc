@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Site.Application.Features.Commands.Apartments.DeleteApartment
 {
-    public class DeleteApartmentCommand:IRequest<int>
+    public class DeleteApartmentCommand:IRequest
     {
         public DeleteApartmentCommand(int Id)
         {

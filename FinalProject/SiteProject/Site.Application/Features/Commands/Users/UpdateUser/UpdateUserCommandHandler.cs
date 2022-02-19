@@ -9,21 +9,24 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Site.Application.Features.Commands.Users.UpdateUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,int>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     {
         private readonly UserManager<User> _userManager;
         private readonly UpdateUserValidator _validator;
+        private readonly IDistributedCache _distributedCache;
 
-        public UpdateUserCommandHandler(UserManager<User> userManager)
+        public UpdateUserCommandHandler(UserManager<User> userManager,IDistributedCache distributedCache)
         {
             _userManager = userManager;
+            _distributedCache = distributedCache;
             _validator = new UpdateUserValidator();
         }
 
-        public async Task<int> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             await _validator.ValidateAndThrowAsync(request);
 
@@ -38,7 +41,9 @@ namespace Site.Application.Features.Commands.Users.UpdateUser
             user.VehicleInformation = request.VehicleInformation != default ? request.VehicleInformation : user.VehicleInformation;
 
             await _userManager.UpdateAsync(user);
-            return 1;
+            await _distributedCache.RemoveAsync("GetAllUsers");
+            await _distributedCache.RemoveAsync("GetUser");
+            return Unit.Value;
         }
     }
 }

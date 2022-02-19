@@ -14,7 +14,7 @@ using Site.Application.Contracts.Persistence.Repositories.BillPayments;
 
 namespace Site.Application.Features.Commands.Bills.AddBill
 {
-    public class AddBillCommandHandler : IRequestHandler<AddBillCommand, int>
+    public class AddBillCommandHandler : IRequestHandler<AddBillCommand>
     {
         private readonly IBillRepository _billRepository;
         private readonly IApartmentRepository _apartmentRepository;
@@ -29,7 +29,7 @@ namespace Site.Application.Features.Commands.Bills.AddBill
             _mapper = mapper;
             _validator = new AddBillValidator();
         }
-        public async Task<int> Handle(AddBillCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddBillCommand request, CancellationToken cancellationToken)
         {
             await _validator.ValidateAndThrowAsync(request);
 
@@ -55,11 +55,12 @@ namespace Site.Application.Features.Commands.Bills.AddBill
                 var apartmentId = await _apartmentRepository.GetByIdAsync(i);
                 billPayment.ApartmentId = apartmentId.ID;
                 billPayment.BillId = billId.ID;
+                billPayment.TotalDept = billPayment.Electric + billPayment.Water + billPayment.NaturalGas + billPayment.Dues;
 
                 await _billPaymentRepository.AddAsync(billPayment);
             }
 
-            return 1;
+            return Unit.Value;
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Site.Infrastructure.Contracts.Persistence.Concrete
     {
         public BillRepository(AppDbContext dbContext) : base(dbContext)
         {
-
         }
     }
 }

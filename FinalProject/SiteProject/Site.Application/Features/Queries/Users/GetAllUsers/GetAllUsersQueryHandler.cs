@@ -47,7 +47,7 @@ namespace Site.Application.Features.Queries.Users.GetAllUsers
                 json = JsonConvert.SerializeObject(users);
                 usersFromCache = Encoding.UTF8.GetBytes(json);
                 var options = new DistributedCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(10))
                     .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
                 await _distributedCache.SetAsync(cacheKey, usersFromCache, options);
                 return _mapper.Map<List<GetUserModel>>(users);

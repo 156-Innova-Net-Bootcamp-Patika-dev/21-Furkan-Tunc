@@ -1,18 +1,18 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Site.Application.Features.Commands.Bills.AddBill
+namespace Site.Domain.Dtos
 {
-    public class AddBillCommand:IRequest
+    public class BillDto
     {
         public decimal Electric { get; set; }
         public decimal Water { get; set; }
         public decimal NaturalGas { get; set; }
         public decimal Dues { get; set; }
-        public int Month { get; set; }
+        public string Month { get; set; }
+        public decimal TotalDept { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Site.Application.Features.Queries.Apartments.GetAllApartments
 
         public async Task<List<ApartmentModel>> Handle(GetAllApartmentsQuery request, CancellationToken cancellationToken)
         {
-            string cacheKey = "GetAllApartment";
+            string cacheKey = "GetAllApartments";
             string json;
             IReadOnlyList<Apartment> apartments;
             var apartmentsFromCache = await _distributedCache.GetAsync(cacheKey);

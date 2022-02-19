@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Site.Application.Features.Commands.Apartments.UpdateApartment
 {
-    public class UpdateApartmentCommand:IRequest<int>
+    public class UpdateApartmentCommand:IRequest
     {
         public int Id { get; set; }
         public byte Blok { get; set; }

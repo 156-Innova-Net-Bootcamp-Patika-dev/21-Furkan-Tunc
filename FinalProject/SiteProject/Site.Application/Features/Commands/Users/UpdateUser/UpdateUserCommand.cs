@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Site.Application.Features.Commands.Users.UpdateUser
 {
-    public class UpdateUserCommand : IRequest<int>
+    public class UpdateUserCommand : IRequest
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

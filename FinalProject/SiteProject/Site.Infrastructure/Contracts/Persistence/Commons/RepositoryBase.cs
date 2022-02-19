@@ -21,7 +21,7 @@ namespace Site.Infrastructure.Contracts.Persistence.Commons
 
         public async Task AddAsync(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
+            var result = _dbContext.Set<T>().Add(entity);
             await _dbContext.SaveChangesAsync();
         }
 

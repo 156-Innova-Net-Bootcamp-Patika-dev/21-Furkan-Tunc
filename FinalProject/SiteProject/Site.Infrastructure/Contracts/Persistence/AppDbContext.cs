@@ -19,6 +19,7 @@ namespace Site.Infrastructure.Contracts.Persistence
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillPayment> BillPayments { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
