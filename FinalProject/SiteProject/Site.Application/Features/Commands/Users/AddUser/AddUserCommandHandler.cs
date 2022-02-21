@@ -31,8 +31,12 @@ namespace Site.Application.Features.Commands.Users.AddUser
         }
         public async Task<string> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            //Mailden kontrol et user var mı
             await _validator.ValidateAndThrowAsync(request);
+
+            var controlUser = await _userManager.FindByEmailAsync(request.Email);
+
+            if (controlUser != null)
+                throw new InvalidOperationException("E-mail is already exist.");
 
             var user = _mapper.Map<User>(request);
 

@@ -10,8 +10,8 @@ using Site.Infrastructure.Contracts.Persistence;
 namespace Site.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220219135018_Deneme")]
-    partial class Deneme
+    [Migration("20220221055404_Messages")]
+    partial class Messages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -347,6 +347,17 @@ namespace Site.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("From")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Read")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("To")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

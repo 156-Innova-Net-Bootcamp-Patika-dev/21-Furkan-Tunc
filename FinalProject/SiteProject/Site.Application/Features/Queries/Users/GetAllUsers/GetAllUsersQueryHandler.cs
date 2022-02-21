@@ -38,8 +38,7 @@ namespace Site.Application.Features.Queries.Users.GetAllUsers
             if (usersFromCache != null)
             {
                 json = Encoding.UTF8.GetString(usersFromCache);
-                var usersCache = JsonConvert.DeserializeObject<List<GetUserModel>>(json);
-                return _mapper.Map<List<GetUserModel>>(usersCache);
+                return JsonConvert.DeserializeObject<List<GetUserModel>>(json);
             }
             else
             {

@@ -24,6 +24,7 @@ namespace Site.Infrastructure.Contracts.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            builder.Entity<Message>().Property(m => m.Read).HasDefaultValue(false);
             base.OnModelCreating(builder);
         }
     }

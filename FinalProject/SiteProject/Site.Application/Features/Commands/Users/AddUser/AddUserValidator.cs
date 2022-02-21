@@ -13,14 +13,9 @@ namespace Site.Application.Features.Commands.Users.AddUser
         {
             RuleFor(u => u.FirstName).NotEmpty();
             RuleFor(u => u.LastName).NotEmpty();
-            RuleFor(u => u.Email).Must(Contain).WithMessage("Invalid E-mail");
-            RuleFor(u => u.Phone).NotEmpty();
-            RuleFor(u => u.TcNo).NotEmpty();
-        }
-
-        private bool Contain(string arg)
-        {
-            return arg.Contains('@');
+            RuleFor(u => u.Email).EmailAddress();
+            RuleFor(u => u.Phone).NotEmpty().Length(11);
+            RuleFor(u => u.TcNo).NotEmpty().Length(11);
         }
     }
 }

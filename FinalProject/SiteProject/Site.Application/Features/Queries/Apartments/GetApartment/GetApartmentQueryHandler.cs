@@ -41,8 +41,7 @@ namespace Site.Application.Features.Queries.Apartments.GetApartment
             if (apartmentFromCache != null)
             {
                 json = Encoding.UTF8.GetString(apartmentFromCache);
-                var apartmentCache = JsonConvert.DeserializeObject<ApartmentModel>(json);
-                return _mapper.Map<ApartmentModel>(apartmentCache);
+                return JsonConvert.DeserializeObject<ApartmentModel>(json);
             }
             else
             {

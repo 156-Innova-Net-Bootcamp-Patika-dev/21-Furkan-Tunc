@@ -37,8 +37,7 @@ namespace Site.Application.Features.Queries.Apartments.GetAllApartments
             if (apartmentsFromCache != null)
             {
                 json = Encoding.UTF8.GetString(apartmentsFromCache);
-                var apartmentsCache = JsonConvert.DeserializeObject<List<ApartmentModel>>(json);
-                return _mapper.Map<List<ApartmentModel>>(apartmentsCache);
+                return JsonConvert.DeserializeObject<List<ApartmentModel>>(json);
             }
             else
             {
@@ -46,7 +45,7 @@ namespace Site.Application.Features.Queries.Apartments.GetAllApartments
                 json = JsonConvert.SerializeObject(apartments);
                 apartmentsFromCache = Encoding.UTF8.GetBytes(json);
                 var options = new DistributedCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(10))
                     .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
                 await _distributedCache.SetAsync(cacheKey, apartmentsFromCache, options);
                 return _mapper.Map<List<ApartmentModel>>(apartments);

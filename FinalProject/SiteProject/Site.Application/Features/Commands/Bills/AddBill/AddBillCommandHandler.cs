@@ -37,25 +37,28 @@ namespace Site.Application.Features.Commands.Bills.AddBill
 
             await _billRepository.AddAsync(addedBill);
 
+            //Eklenen faturanın Id'si alındı
             var billId = await _billRepository.GetByIdAsync(addedBill.ID);
 
+            //Bütün daireler çekildi
             var apartments = await _apartmentRepository.GetAllAsync();
             var apartmentFirst = apartments[0];
             var apartmentLast = apartments[apartments.Count - 1];
 
+            //Her daire için daire başına düşen faturalar eklendi 
             for (int i = apartmentFirst.ID; i <= apartmentLast.ID; i++)
             {
                 var billPayment = new BillPayment();
 
+                billPayment.BillId = billId.ID;
                 billPayment.Electric = addedBill.Electric / apartments.Count;
                 billPayment.Water = addedBill.Water / apartments.Count;
                 billPayment.NaturalGas = addedBill.NaturalGas / apartments.Count;
                 billPayment.Dues = addedBill.Dues;
+                billPayment.TotalDept = billPayment.Electric + billPayment.Water + billPayment.NaturalGas + billPayment.Dues;
                 billPayment.Month = addedBill.Month;
                 var apartmentId = await _apartmentRepository.GetByIdAsync(i);
                 billPayment.ApartmentId = apartmentId.ID;
-                billPayment.BillId = billId.ID;
-                billPayment.TotalDept = billPayment.Electric + billPayment.Water + billPayment.NaturalGas + billPayment.Dues;
 
                 await _billPaymentRepository.AddAsync(billPayment);
             }

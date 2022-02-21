@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Site.Application.Contracts.Persistence.Repositories.BillPayments;
+using Site.Domain.Entities;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using Site.Domain.Dtos;
 
 namespace Site.Application.Features.Queries.Bills.GetBill
 {
@@ -18,11 +22,13 @@ namespace Site.Application.Features.Queries.Bills.GetBill
         private readonly IBillPaymentRepository _billPaymentRepository;
         private readonly IMapper _mapper;
         private readonly GetBillValidator _validator;
+        private readonly IDistributedCache _distributedCache;
 
-        public GetBillQueryHandler(IBillPaymentRepository billPaymentRepository, IMapper mapper)
+        public GetBillQueryHandler(IBillPaymentRepository billPaymentRepository, IMapper mapper, IDistributedCache distributedCache)
         {
             _billPaymentRepository = billPaymentRepository;
             _mapper = mapper;
+            _distributedCache = distributedCache;
             _validator = new GetBillValidator();
         }
 
@@ -30,15 +36,27 @@ namespace Site.Application.Features.Queries.Bills.GetBill
         {
             await _validator.ValidateAndThrowAsync(request);
 
-            var bills =  await _billPaymentRepository.GetBillByUserId(request.UserId);
+            string cacheKey = "GetBill";
+            string json;
+            List<BillDto> bills;
+            var billFromCache = await _distributedCache.GetAsync(cacheKey);
 
-            if (bills == null)
-                throw new InvalidOperationException("There is no bill.");
-
-            var result = _mapper.Map<List<BillModel>>(bills);
-
-            return result;
-
+            if (billFromCache != null)
+            {
+                json = Encoding.UTF8.GetString(billFromCache);
+                return JsonConvert.DeserializeObject<List<BillModel>>(json);
+            }
+            else
+            {
+                bills = await _billPaymentRepository.GetBillByUserId(request.UserId);
+                json = JsonConvert.SerializeObject(bills);
+                billFromCache = Encoding.UTF8.GetBytes(json);
+                var options = new DistributedCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                    .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
+                await _distributedCache.SetAsync(cacheKey, billFromCache, options);
+                return _mapper.Map<List<BillModel>>(bills);
+            }
         }
     }
 }

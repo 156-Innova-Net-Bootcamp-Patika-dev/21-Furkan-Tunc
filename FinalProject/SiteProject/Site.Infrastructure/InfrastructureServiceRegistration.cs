@@ -5,6 +5,7 @@ using Site.Application.Contracts.Persistence.Repositories.Apartments;
 using Site.Application.Contracts.Persistence.Repositories.BillPayments;
 using Site.Application.Contracts.Persistence.Repositories.Bills;
 using Site.Application.Contracts.Persistence.Repositories.Commons;
+using Site.Application.Contracts.Persistence.Repositories.Messages;
 using Site.Infrastructure.Contracts.Persistence;
 using Site.Infrastructure.Contracts.Persistence.Commons;
 using Site.Infrastructure.Contracts.Persistence.Concrete;
@@ -29,6 +30,7 @@ namespace Site.Infrastructure
             services.AddTransient<IApartmentRepository, ApartmentRepository>();
             services.AddTransient<IBillRepository, BillRepository>();
             services.AddTransient<IBillPaymentRepository, BillPaymentReporsitory>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
 
             return services;
         }
