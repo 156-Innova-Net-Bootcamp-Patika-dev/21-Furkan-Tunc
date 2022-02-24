@@ -48,7 +48,7 @@ namespace Site.Application.Features.Queries.Bills.GetBill
             }
             else
             {
-                bills = await _billPaymentRepository.GetBillByUserId(request.UserId);
+                bills = _billPaymentRepository.GetBillByUserId(request.UserId);
                 json = JsonConvert.SerializeObject(bills);
                 billFromCache = Encoding.UTF8.GetBytes(json);
                 var options = new DistributedCacheEntryOptions()

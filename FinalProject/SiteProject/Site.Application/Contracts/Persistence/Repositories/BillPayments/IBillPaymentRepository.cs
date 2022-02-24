@@ -11,6 +11,7 @@ namespace Site.Application.Contracts.Persistence.Repositories.BillPayments
 {
     public interface IBillPaymentRepository:IRepositoryBase<BillPayment>
     {
-        Task<List<BillDto>> GetBillByUserId(int userId);
+        List<BillDto> GetBillByUserId(int userId);
+        BillPayment GetBillByUserIdAndMonth(int userId, int month);
     }
 }

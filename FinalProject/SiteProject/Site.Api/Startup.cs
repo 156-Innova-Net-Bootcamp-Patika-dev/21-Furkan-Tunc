@@ -1,13 +1,10 @@
-using MediatR;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Site.Api.Extensions;
 using Site.Application;
@@ -17,10 +14,7 @@ using Site.Domain.Authentication;
 using Site.Infrastructure;
 using Site.Infrastructure.Contracts.Persistence;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+
 
 namespace Site.Api
 {
@@ -41,7 +35,7 @@ namespace Site.Api
 
             services.AddAutoMapper(typeof(MappingProfile));
 
-            #region Jwt Ayarlarý
+            #region Jwt
             services.Configure<JwtSettings>(Configuration.GetSection("JWT"));
             var jwt = Configuration.GetSection("JWT").Get<JwtSettings>();
 
@@ -59,19 +53,20 @@ namespace Site.Api
             services.AddAuth(jwt);
             #endregion
 
+
+            #region Redis
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";
                 options.InstanceName = "SampleInstance";
             });
+            #endregion
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Site.Api", Version = "v1" });
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

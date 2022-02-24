@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="6.2.1" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="6.2.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="6.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.14">
       <PrivateAssets>all</PrivateAssets>

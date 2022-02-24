@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Site.Application
+namespace Site.MessageContract
 {
-    public interface ICacheService<T>
+    class IRegisterDemandCommand
     {
-        Task<IReadOnlyList<T>> GetFromCache(string cacheKey);
     }
 }
