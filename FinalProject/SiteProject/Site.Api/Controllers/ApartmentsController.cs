@@ -54,7 +54,7 @@ namespace Site.Api.Controllers
             return Ok("Apartment updated");
         }
 
-        [HttpDelete]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteApartment(int Id)
         {
             var result = await _mediator.Send(new DeleteApartmentCommand(Id));
