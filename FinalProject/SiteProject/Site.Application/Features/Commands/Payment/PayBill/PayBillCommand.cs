@@ -1,24 +1,19 @@
 ﻿using MediatR;
-using Site.Application.Models.CreditCard;
-using Site.Domain.Dtos;
+using Site.Application.Models.Payment;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Site.Application.Features.Commands.Payment.PayBill
 {
     public class PayBillCommand:IRequest<string>
     { 
-        public PayBillCommand(CreditCardModel creditCardModel, int month, decimal pay, int userId)
+        public PayBillCommand(PaymentModel paymentModel, int userId)
         {
             UserId = userId;
-            Pay = pay;
-            Month = month;
-            CreditCardNumber = creditCardModel.CreditCardNumber;
-            ExpireDate = creditCardModel.ExpireDate;
-            Cvc = creditCardModel.Cvc;
+            Pay = paymentModel.Pay;
+            Month = paymentModel.Month;
+            CreditCardNumber = paymentModel.CreditCardNumber;
+            ExpireDate = paymentModel.ExpireDate;
+            Cvc = paymentModel.Cvc;
         }
 
         public int UserId { get; set; }

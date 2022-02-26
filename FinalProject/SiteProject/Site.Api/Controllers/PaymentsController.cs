@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Site.Application.Features.Commands.Payment.PayBill;
-using Site.Application.Models.CreditCard;
-using System;
+using Site.Application.Models.Payment;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,11 +21,11 @@ namespace Site.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> PayBill(decimal pay, int month, [FromBody]CreditCardModel creditCardModel)
+        public async Task<IActionResult> PayBill([FromBody]PaymentModel paymentModel)
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var result = await _mediator.Send(new PayBillCommand(creditCardModel, month, pay, userId));
+            var result = await _mediator.Send(new PayBillCommand(paymentModel, userId));
             return Ok(result);
         }
     }
