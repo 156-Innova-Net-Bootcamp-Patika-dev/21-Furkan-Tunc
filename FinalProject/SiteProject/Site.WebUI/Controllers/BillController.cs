@@ -67,12 +67,6 @@ namespace Site.WebUI.Controllers
 
             var jwt = Request.Cookies["jwt"];
 
-            if (jwt == null)
-            {
-                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
-                return View();
-            }
-
             var result = await MyHttpClient.HttpCommand("POST", jsonData, "Bills", jwt);
 
             ViewData["Message"] = result;

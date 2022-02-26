@@ -30,38 +30,18 @@ namespace Site.Application.Features.Queries.Messages.GetMessage
 
         public async Task<List<MessageModel>> Handle(GetMessageQuery request, CancellationToken cancellationToken)
         {
-            string cacheKey = "GetMessages";
-            string json;
-            IReadOnlyList<MessageDto> messages;
-            var messagesFromCache = await _distributedCache.GetAsync(cacheKey);
+            var messages = await _messageRepository.GetMessages(request.ID);
 
-            if (messagesFromCache != null)
+            //Çekilen mesajlar okundu olarak işaretlendi
+            Message newMessages;
+            for (int i = 0; i < messages.Count; i++)
             {
-                json = Encoding.UTF8.GetString(messagesFromCache);
-                messages = JsonConvert.DeserializeObject<List<MessageDto>>(json);
-                return _mapper.Map<List<MessageModel>>(messages);
+                newMessages = await _messageRepository.GetByIdAsync(messages[i].Id);
+                newMessages.Read = true;
+                await _messageRepository.UpdateAsync(newMessages);
             }
-            else
-            {
-                messages = await _messageRepository.GetMessages(request.ID);
 
-                //Çekilen mesajlar okundu olarak işaretlendi
-                Message newMessages;
-                for (int i = 0; i < messages.Count; i++)
-                {
-                    newMessages = await _messageRepository.GetByIdAsync(messages[i].Id);
-                    newMessages.Read = true;
-                    await _messageRepository.UpdateAsync(newMessages);
-                }
-
-                json = JsonConvert.SerializeObject(messages);
-                messagesFromCache = Encoding.UTF8.GetBytes(json);
-                var options = new DistributedCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(10))
-                    .SetAbsoluteExpiration(DateTime.Now.AddHours(1));
-                await _distributedCache.SetAsync(cacheKey, messagesFromCache, options);
-                return _mapper.Map<List<MessageModel>>(messages);
-            }
+            return _mapper.Map<List<MessageModel>>(messages);
         }
     }
 }
