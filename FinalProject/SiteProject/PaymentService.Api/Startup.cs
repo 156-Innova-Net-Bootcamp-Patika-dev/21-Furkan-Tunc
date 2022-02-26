@@ -1,10 +1,11 @@
-using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PaymentService.Application;
+using PaymentService.Application.Mapping;
 using PaymentService.Infrastructure;
 
 namespace PaymentService.Api
@@ -22,6 +23,9 @@ namespace PaymentService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructureService(Configuration);
+            services.AddApplicationServices();
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

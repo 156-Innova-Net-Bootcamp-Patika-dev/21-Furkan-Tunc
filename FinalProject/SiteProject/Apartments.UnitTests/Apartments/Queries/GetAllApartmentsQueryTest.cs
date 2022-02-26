@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Site.Application.Contracts.Persistence.Repositories.Apartments;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Moq;
@@ -11,6 +8,9 @@ using Apartments.UnitTests.Mocks;
 using Site.Application.Mapping;
 using Site.Application.Features.Queries.Apartments.GetAllApartments;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Threading;
+using Site.Application.Models.Apartment;
+using Shouldly;
 
 namespace Apartments.UnitTests.Apartments.Queries
 {
@@ -18,6 +18,7 @@ namespace Apartments.UnitTests.Apartments.Queries
     {
         private readonly IMapper _mapper;
         private readonly Mock<IApartmentRepository> _mocks;
+        private readonly Mock<IDistributedCache> _distributedCache;
 
         public GetAllApartmentsQueryTest()
         {
@@ -32,10 +33,12 @@ namespace Apartments.UnitTests.Apartments.Queries
         }
 
         [Fact]
-        public async Task GetAllApartments()
+        public async Task GetAllApartments_ShouldReturnApartmentModel()
         {
-            //var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper);
+            //var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper,_distributedCache);
+            //var result = await handler.Handle(new GetAllApartmentsQuery(), CancellationToken.None);
 
+            //result.ShouldBeOfType<List<ApartmentModel>>();
         }
     }
 }

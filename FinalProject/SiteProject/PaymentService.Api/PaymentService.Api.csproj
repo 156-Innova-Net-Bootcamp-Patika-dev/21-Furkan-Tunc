@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -12,10 +13,6 @@
     <ProjectReference Include="..\PaymentService.Infrastructure\PaymentService.Infrastructure.csproj" />
     <ProjectReference Include="..\Site.Api\Site.Api.csproj" />
     <ProjectReference Include="..\Site.Application\Site.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

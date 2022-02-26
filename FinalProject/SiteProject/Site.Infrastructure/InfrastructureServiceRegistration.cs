@@ -9,11 +9,6 @@ using Site.Application.Contracts.Persistence.Repositories.Messages;
 using Site.Infrastructure.Contracts.Persistence;
 using Site.Infrastructure.Contracts.Persistence.Commons;
 using Site.Infrastructure.Contracts.Persistence.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Site.Infrastructure
 {
