@@ -1,9 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Site.Application.Features.Commands.Authentications.SignUpUser;
 using Site.Application.Features.Queries.Authentications.GetUser;
 using Site.Application.Models.Authentication;
 using Site.Application.Settings;
@@ -30,21 +28,11 @@ namespace Site.Api.Controllers
             _mediator = mediator;
             _jwtSettings = jwtSettings.Value;
         }
-        [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUp(SignUpUserCommand signUpUserCommand)
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn([FromBody]SignInModel signInModel)
         {
-            var result = await _mediator.Send(signUpUserCommand);
-
-            if (result != 0)
-                return Ok();
-
-            return BadRequest("User not created");
-        }
-
-        [HttpPost("SignIn")]
-        public async Task<IActionResult> SignIn(string email, string password)
-        {
-            var query = new GetUserByEmailAndPasswordQuery(email, password);
+            var query = new GetUserByEmailAndPasswordQuery(signInModel);
             var userModel = await _mediator.Send(query);
 
             if (userModel != null)

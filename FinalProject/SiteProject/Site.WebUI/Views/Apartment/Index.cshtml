@@ -5,8 +5,14 @@
     ViewData["Title"] = "Apartments";
 }
 
-<h1>Apartments</h1>
+<h1>Daireler</h1>
 
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Message"]
+    </div>
+}
 
 <section class="content">
     <div class="container-fluid">

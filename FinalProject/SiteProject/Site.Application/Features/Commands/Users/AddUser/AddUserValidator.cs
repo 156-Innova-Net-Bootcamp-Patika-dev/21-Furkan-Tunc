@@ -14,7 +14,7 @@ namespace Site.Application.Features.Commands.Users.AddUser
             RuleFor(u => u.FirstName).NotEmpty();
             RuleFor(u => u.LastName).NotEmpty();
             RuleFor(u => u.Email).EmailAddress();
-            RuleFor(u => u.Phone).NotEmpty().Length(11);
+            RuleFor(u => u.PhoneNumber).NotEmpty().Length(11);
             RuleFor(u => u.TcNo).NotEmpty().Length(11);
         }
     }

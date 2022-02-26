@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Site.Application.Features.Commands.Users.AddUser;
@@ -38,6 +39,7 @@ namespace Site.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserCommand addUserCommand)
         {
@@ -56,7 +58,7 @@ namespace Site.Api.Controllers
             return Ok("User updated.");
         }
 
-        [HttpDelete]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteUser(int Id)
         {
             var result = await _mediator.Send(new DeleteUserCommand(Id));

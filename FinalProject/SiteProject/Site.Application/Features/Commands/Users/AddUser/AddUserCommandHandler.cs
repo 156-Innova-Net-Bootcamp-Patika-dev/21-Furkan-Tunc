@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using Site.Domain.Authentication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -47,7 +44,6 @@ namespace Site.Application.Features.Commands.Users.AddUser
 
             if (createdUser.Succeeded)
             {
-                var userEntity = _userManager.Users.SingleOrDefault(u => u.Email == request.Email);
                 await _distributedCache.RemoveAsync("GetAllUsers");
                 await _distributedCache.RemoveAsync("GetUser");
                 return pin;

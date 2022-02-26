@@ -47,7 +47,7 @@ namespace Site.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateApartment([FromBody] UpdateApartmentCommand updateApartmentCommand)
+        public async Task<IActionResult> UpdateApartment([FromBody]UpdateApartmentCommand updateApartmentCommand)
         {
             var result = await _mediator.Send(updateApartmentCommand);
 

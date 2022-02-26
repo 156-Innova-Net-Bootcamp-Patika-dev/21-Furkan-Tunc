@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Site.Application.Features.Commands.Apartments.AddApartment;
-using Site.Application.Features.Commands.Authentications.SignUpUser;
 using Site.Application.Features.Commands.Bills.AddBill;
 using Site.Application.Features.Commands.Messages.SendMessage;
 using Site.Application.Features.Commands.Users.AddUser;
@@ -25,7 +24,6 @@ namespace Site.Application.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<User, SignUpUserCommand>().ReverseMap();
             CreateMap<User, UserModel>().ReverseMap();
             CreateMap<User, AddUserCommand>().ReverseMap();
             CreateMap<GetUserModel, User>().ReverseMap();

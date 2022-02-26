@@ -14,10 +14,10 @@ namespace Site.Application.Features.Queries.Authentications.GetUser
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public GetUserByEmailAndPasswordQuery(string email, string password)
+        public GetUserByEmailAndPasswordQuery(SignInModel signInModel)
         {
-            Email = email ?? throw new ArgumentException(nameof(email));
-            Password = password ?? throw new ArgumentException(nameof(password));
+            Email = signInModel.Email ?? throw new ArgumentException(nameof(Email));
+            Password = signInModel.Password ?? throw new ArgumentException(nameof(Password));
         }
 
     }

@@ -13,7 +13,7 @@ namespace Site.Application.Features.Commands.Users.AddUser
         public string LastName { get; set; }
         public string TcNo { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
         public string VehicleInformation { get; set; }
         public int ApartmentId { get; set; }
     }

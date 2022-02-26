@@ -7,14 +7,18 @@ namespace Site.WebUI.HttpClients
 {
     public class MyHttpClient
     {
-        public static async Task<string> MyHttpGet(string method, string action)
+        public static async Task<string> HttpGet(string method, string action, string token)
         {
             using (var httpClient = new HttpClient())
             {
                 using (var request = new HttpRequestMessage(new HttpMethod(method), $"http://localhost:15432/api/{action}"))
                 {
                     request.Headers.TryAddWithoutValidation("accept", "*/*");
-                    request.Headers.TryAddWithoutValidation("Authorization", "");
+
+                    if (token != null)
+                    {
+                        request.Headers.TryAddWithoutValidation("Authorization", $"bearer {token}");
+                    }
 
                     var response = await httpClient.SendAsync(request);
 
@@ -27,14 +31,18 @@ namespace Site.WebUI.HttpClients
             }
         }
 
-        public static async Task<string> MyHttpCommand(string method, string content, string action)
+        public static async Task<string> HttpCommand(string method, string content, string action, string token )
         {
             using (var httpClient = new HttpClient())
             {
                 using (var request = new HttpRequestMessage(new HttpMethod(method), $"http://localhost:15432/api/{action}"))
                 {
                     request.Headers.TryAddWithoutValidation("accept", "*/*");
-                    request.Headers.TryAddWithoutValidation("Authorization", "");
+
+                    if (token!=null)
+                    {
+                        request.Headers.TryAddWithoutValidation("Authorization", $"bearer {token}");
+                    }
 
                     request.Content = new StringContent(content);
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");

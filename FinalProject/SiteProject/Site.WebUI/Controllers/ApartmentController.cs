@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Site.WebUI.HttpClients;
 using Site.WebUI.Models.Apartments;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Site.WebUI.Controllers
@@ -11,7 +13,21 @@ namespace Site.WebUI.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            var apartmentJson = await MyHttpClient.MyHttpGet("GET", "Apartments");
+            var jwt = Request.Cookies["jwt"];
+
+            var token = jwt;
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            var jwtRole = jwtSecurityToken.Claims.First(claim => claim.Value == "Admin" || claim.Value == "User").Value;
+
+            if (jwt == null || jwtRole != "Admin")
+            {
+                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var apartmentJson = await MyHttpClient.HttpGet("GET", "Apartments",jwt);
             var apartmentList = JsonConvert.DeserializeObject<List<ApartmentListModel>>(apartmentJson);
 
             return View(apartmentList);
@@ -27,14 +43,19 @@ namespace Site.WebUI.Controllers
         public async Task<IActionResult> Add(AddApartmentModel addApartmentModel)
         {
             var jsonData = JsonConvert.SerializeObject(addApartmentModel);
-            var result = await MyHttpClient.MyHttpCommand("POST", jsonData, "Apartments");
 
-            if (result == null)
+            var jwt = Request.Cookies["jwt"];
+
+            if (jwt==null)
             {
-                TempData["ErorMesaj"] = "İşlem başarısız oldu!";
-                return View(addApartmentModel);
+                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
+                return View();
             }
-            TempData["SuccessMesaj"] = "İşlem başarıyla gerçekleşti";
+
+            var result = await MyHttpClient.HttpCommand("POST", jsonData, "Apartments",jwt);
+
+            ViewData["Message"] = result;
+
             return RedirectToAction("Index");
         }
 
@@ -42,7 +63,9 @@ namespace Site.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var apartmentJson = await MyHttpClient.MyHttpGet("GET", $"Apartments/{id}");
+            var jwt = Request.Cookies["jwt"];
+
+            var apartmentJson = await MyHttpClient.HttpGet("GET", $"Apartments/{id}",jwt);
             var apartment = JsonConvert.DeserializeObject<UpdateApartmentModel>(apartmentJson);
 
             return View(apartment);
@@ -52,22 +75,22 @@ namespace Site.WebUI.Controllers
         public async Task<IActionResult> Update(UpdateApartmentModel updateApartmentModel)
         {
             var jsonData = JsonConvert.SerializeObject(updateApartmentModel);
-            var result = await MyHttpClient.MyHttpCommand("PUT", jsonData, "Apartments");
+            var jwt = Request.Cookies["jwt"];
+            var result = await MyHttpClient.HttpCommand("PUT", jsonData, "Apartments",jwt);
 
-            if (result == null)
-            {
-                TempData["ErorMesaj"] = "İşlem başarısız oldu!";
-                return View(updateApartmentModel);
-            }
-            TempData["SuccessMesaj"] = "İşlem başarıyla gerçekleşti";
+            ViewData["Message"] = result;
+
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            var jwt = Request.Cookies["jwt"];
             var jsonData = JsonConvert.SerializeObject(id);
-            var apartmentJson = await MyHttpClient.MyHttpCommand("DELETE", jsonData, $"Apartments/{id}");
+            var result = await MyHttpClient.HttpCommand("DELETE", jsonData, $"Apartments/{id}",jwt);
+
+            ViewData["Message"] = result;
 
             return RedirectToAction("Index");
         }

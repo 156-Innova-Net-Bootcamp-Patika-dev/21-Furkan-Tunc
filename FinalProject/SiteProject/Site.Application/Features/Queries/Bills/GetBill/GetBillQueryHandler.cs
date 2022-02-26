@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using FluentValidation;
-using Site.Application.Contracts.Persistence.Repositories.Bills;
 using Site.Application.Models.Bill;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Site.Application.Contracts.Persistence.Repositories.BillPayments;
-using Site.Domain.Entities;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Site.Domain.Dtos;

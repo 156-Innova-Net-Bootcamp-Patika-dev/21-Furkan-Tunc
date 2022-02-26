@@ -2,15 +2,12 @@
 using MediatR;
 using FluentValidation;
 using Site.Application.Contracts.Persistence.Repositories.Bills;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Site.Domain.Entities;
 using Site.Application.Contracts.Persistence.Repositories.Apartments;
 using Site.Application.Contracts.Persistence.Repositories.BillPayments;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Site.Application.Features.Commands.Bills.AddBill
 {
@@ -19,13 +16,15 @@ namespace Site.Application.Features.Commands.Bills.AddBill
         private readonly IBillRepository _billRepository;
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IBillPaymentRepository _billPaymentRepository;
+        private readonly IDistributedCache _distributedCache;
         private readonly IMapper _mapper;
         private readonly AddBillValidator _validator;
-        public AddBillCommandHandler(IBillRepository billRepository, IApartmentRepository apartmentRepository, IBillPaymentRepository billPaymentRepository, IMapper mapper)
+        public AddBillCommandHandler(IBillRepository billRepository, IApartmentRepository apartmentRepository, IBillPaymentRepository billPaymentRepository, IMapper mapper, IDistributedCache distributedCache)
         {
             _billRepository = billRepository;
             _apartmentRepository = apartmentRepository;
             _billPaymentRepository = billPaymentRepository;
+            _distributedCache = distributedCache;
             _mapper = mapper;
             _validator = new AddBillValidator();
         }
@@ -63,6 +62,8 @@ namespace Site.Application.Features.Commands.Bills.AddBill
                 await _billPaymentRepository.AddAsync(billPayment);
             }
 
+            await _distributedCache.RemoveAsync("GetAllBills");
+            await _distributedCache.RemoveAsync("GetBill");
             return Unit.Value;
         }
     }
