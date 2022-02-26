@@ -12,7 +12,6 @@ namespace Site.Application.Features.Commands.Messages.SendMessage
         public SendMessageValidator()
         {
             RuleFor(m => m.Content).NotEmpty();
-            RuleFor(m => m.From).EmailAddress();
             RuleFor(m => m.To).EmailAddress();
         }
     }

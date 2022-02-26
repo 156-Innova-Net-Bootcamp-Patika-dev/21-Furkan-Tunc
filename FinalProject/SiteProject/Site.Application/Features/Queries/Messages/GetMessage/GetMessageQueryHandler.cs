@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
 using Site.Application.Contracts.Persistence.Repositories.Messages;
 using Site.Application.Models.Message;
-using Site.Domain.Dtos;
 using Site.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,13 +13,11 @@ namespace Site.Application.Features.Queries.Messages.GetMessage
     {
         private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
-        private readonly IDistributedCache _distributedCache;
 
-        public GetMessageQueryHandler(IMessageRepository messageRepository, IMapper mapper, IDistributedCache distributedCache)
+        public GetMessageQueryHandler(IMessageRepository messageRepository, IMapper mapper)
         {
             _messageRepository = messageRepository;
             _mapper = mapper;
-            _distributedCache = distributedCache;
         }
 
         public async Task<List<MessageModel>> Handle(GetMessageQuery request, CancellationToken cancellationToken)

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Site.WebUI.Models.Messages
+namespace Site.Application.Models.Message
 {
     public class SendMessageModel
     {

@@ -35,7 +35,7 @@ namespace Site.Application.Mapping
             CreateMap<BillDto, BillModel>().ReverseMap();
 
             CreateMap<Message, SendMessageCommand>().ReverseMap();
-            CreateMap<MessageModel, MessageDto>().ReverseMap().ForMember(dest => dest.Read, opt => opt.MapFrom(src => src.Read == false ? "New Message" : "Okunmuş"));
+            CreateMap<MessageModel, MessageDto>().ReverseMap().ForMember(dest => dest.Read, opt => opt.MapFrom(src => src.Read == false ? "Yeni Mesaj" : "Okunmuş"));
         }
     }
 }
