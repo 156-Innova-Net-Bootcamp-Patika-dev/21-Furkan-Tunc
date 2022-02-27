@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Site.Application.Models.User
+﻿namespace Site.Application.Models.User
 {
     public class GetUserModel
     {

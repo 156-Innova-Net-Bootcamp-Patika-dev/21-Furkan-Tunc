@@ -14,7 +14,7 @@ using Shouldly;
 
 namespace Apartments.UnitTests.Apartments.Queries
 {
-    public class GetAllApartmentsQueryTest
+    public class GetAllApartmentsQueryTest 
     {
         private readonly IMapper _mapper;
         private readonly Mock<IApartmentRepository> _mocks;
@@ -31,16 +31,17 @@ namespace Apartments.UnitTests.Apartments.Queries
 
             _mapper = new Mapper(mapperConfig);
 
-            // _distributedCache
+            _distributedCache = MockCache.GetDistributedCache();
         }
 
         [Fact]
         public async Task GetAllApartments_ShouldReturnApartmentModel()
         {
-            //var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper, _distributedCache);
-            //var result = await handler.Handle(new GetAllApartmentsQuery(), CancellationToken.None);
+            var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper, (IDistributedCache)_distributedCache);
 
-            //result.ShouldBeOfType<List<ApartmentModel>>();
+            var result = await handler.Handle(new GetAllApartmentsQuery(), CancellationToken.None);
+
+            result.ShouldBeOfType<List<ApartmentModel>>();
         }
     }
 }

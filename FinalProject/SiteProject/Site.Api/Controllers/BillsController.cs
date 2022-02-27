@@ -1,13 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Site.Application.Features.Commands.Bills.AddBill;
 using Site.Application.Features.Queries.Bills.GetAllBills;
 using Site.Application.Features.Queries.Bills.GetBill;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

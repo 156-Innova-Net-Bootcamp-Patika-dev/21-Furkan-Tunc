@@ -21,7 +21,7 @@ namespace Site.WebUI.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(signInModel);
             string jwt = "";
-            var result = await MyHttpClient.HttpCommand("POST", jsonData, "Auth",jwt); //resultta token geliyor
+            var result = await MyHttpClient.HttpCommand("POST", jsonData, "Auth",jwt);
 
             CookieOptions options = new CookieOptions();
             options.Expires = DateTime.Now.AddDays(1);

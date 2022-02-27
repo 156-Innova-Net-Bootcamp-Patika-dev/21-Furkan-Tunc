@@ -6,9 +6,6 @@ using Site.Application.Features.Commands.Apartments.DeleteApartment;
 using Site.Application.Features.Commands.Apartments.UpdateApartment;
 using Site.Application.Features.Queries.Apartments.GetAllApartments;
 using Site.Application.Features.Queries.Apartments.GetApartment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Site.Api.Controllers

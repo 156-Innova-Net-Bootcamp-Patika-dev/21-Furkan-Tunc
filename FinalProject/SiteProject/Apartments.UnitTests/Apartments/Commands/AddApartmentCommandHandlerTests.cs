@@ -32,9 +32,9 @@ namespace Apartments.UnitTests.Apartments.Commands
         }
 
         [Fact]
-        public async Task AddApartment_()
+        public async Task AddApartment()
         {
-
+            //var handler = new 
         }
     }
 }

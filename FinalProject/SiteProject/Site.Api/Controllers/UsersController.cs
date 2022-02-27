@@ -1,15 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Site.Application.Features.Commands.Users.AddUser;
 using Site.Application.Features.Commands.Users.DeleteUser;
 using Site.Application.Features.Commands.Users.UpdateUser;
 using Site.Application.Features.Queries.Users.GetAllUsers;
 using Site.Application.Features.Queries.Users.GetUser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Site.Api.Controllers

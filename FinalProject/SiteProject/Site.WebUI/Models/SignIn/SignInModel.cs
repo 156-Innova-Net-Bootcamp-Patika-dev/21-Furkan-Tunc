@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Site.WebUI.Models.SignIn
+﻿namespace Site.WebUI.Models.SignIn
 {
     public class SignInModel
     {

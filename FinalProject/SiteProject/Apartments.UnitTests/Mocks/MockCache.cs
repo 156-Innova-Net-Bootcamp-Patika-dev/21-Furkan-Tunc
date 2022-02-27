@@ -12,9 +12,10 @@ namespace Apartments.UnitTests.Mocks
     {
         public static Mock<IDistributedCache> GetDistributedCache()
         {
-            //var mockRepo = new Mock<IDistributedCache>();
-            //mockRepo.Setup(x => x.Get(It.IsAny<IDistributedCache>))
-            //return mockRepo;
+            
+            var mockRepo = new Mock<IDistributedCache>();
+            mockRepo.Setup(x => x.Get(It.IsAny<string>()));
+            return mockRepo;
         }
     }
 }

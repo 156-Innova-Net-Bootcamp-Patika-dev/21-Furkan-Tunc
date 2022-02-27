@@ -4,7 +4,6 @@ using PaymentService.Application.Consumer;
 using PaymentService.Application.Contracts.Persistence.Repositories.Commons;
 using PaymentService.Application.Contracts.Persistence.Repositories.CreditCards;
 using PaymentService.Application.Settings;
-using PaymentService.Infrastructure.Contracts.Persistence;
 using PaymentService.Infrastructure.Contracts.Persistence.Commons;
 using PaymentService.Infrastructure.Contracts.Persistence.Concrete;
 

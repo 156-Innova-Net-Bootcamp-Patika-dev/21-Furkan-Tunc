@@ -4,8 +4,6 @@ using FluentValidation;
 using Site.Application.Contracts.Persistence.Repositories.Apartments;
 using Site.Application.Models.Apartment;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;

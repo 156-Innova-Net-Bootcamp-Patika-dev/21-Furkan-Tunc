@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Site.Application.Models.Authentication;
 using Site.Domain.Authentication;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

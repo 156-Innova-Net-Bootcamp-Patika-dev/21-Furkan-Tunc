@@ -3,7 +3,6 @@ using MediatR;
 using FluentValidation;
 using PaymentService.Application.Contracts.Persistence.Repositories.CreditCards;
 using PaymentService.Domain.Entities;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -3,11 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using Site.Application.Contracts.Persistence.Repositories.Apartments;
-using Site.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
