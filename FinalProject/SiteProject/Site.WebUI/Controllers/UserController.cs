@@ -13,6 +13,11 @@ namespace Site.WebUI.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (TempData["Message"] != null)
+            {
+                ViewData["Message"] = TempData["Message"];
+            }
+
             var jwt = Request.Cookies["jwt"];
 
             var token = jwt;
@@ -24,7 +29,7 @@ namespace Site.WebUI.Controllers
 
             if (jwt == null || jwtRole != "Admin")
             {
-                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
+                TempData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -49,13 +54,13 @@ namespace Site.WebUI.Controllers
 
             if (jwt == null)
             {
-                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
+                TempData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
                 return View();
             }
 
-            var result = await MyHttpClient.HttpCommand("POST", jsonData, "Users",jwt);//result da pin geliyor bunu kullanıcıya göster
+            var result = await MyHttpClient.HttpCommand("POST", jsonData, "Users",jwt);
 
-            ViewData["Message"] = result;
+            TempData["Message"] = result;
 
             return RedirectToAction("Index"); 
         }
@@ -78,7 +83,7 @@ namespace Site.WebUI.Controllers
             var jwt = Request.Cookies["jwt"];
             var result = await MyHttpClient.HttpCommand("PUT", jsonData, "Users",jwt);
 
-            ViewData["Message"] = result;
+            TempData["Message"] = result;
             return RedirectToAction("Index");
         }
 
@@ -89,7 +94,7 @@ namespace Site.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(id);
             var result = await MyHttpClient.HttpCommand("DELETE", jsonData, $"Users/{id}", jwt);
 
-            ViewData["Message"] = result;
+            TempData["Message"] = result;
 
             return RedirectToAction("Index");
         }

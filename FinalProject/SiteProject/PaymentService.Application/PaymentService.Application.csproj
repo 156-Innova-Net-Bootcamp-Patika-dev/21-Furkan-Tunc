@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PaymentService.Domain\PaymentService.Domain.csproj" />
+    <ProjectReference Include="..\Site.Domain\Site.Domain.csproj" />
   </ItemGroup>
 
 </Project>

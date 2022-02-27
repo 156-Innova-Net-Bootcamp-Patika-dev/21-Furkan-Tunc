@@ -16,6 +16,10 @@ namespace Site.WebUI.Controllers
 
         public IActionResult Index()
         {
+            if (TempData["ErrorMessage"]!=null)
+            {
+                ViewData["ErrorMessage"] = TempData["ErrorMessage"];
+            }
             return View();
         }
 

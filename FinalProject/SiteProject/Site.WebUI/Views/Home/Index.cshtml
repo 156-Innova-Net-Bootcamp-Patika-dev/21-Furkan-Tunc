@@ -6,7 +6,9 @@
 
     @if (ViewData["ErrorMessage"] != null)
     {
-        <h1>@ViewData["ErrorMessage"]</h1>
+        <div class="alert alert-danger" role="alert">
+            @ViewData["ErrorMessage"]
+        </div>
     }
 
     <h1 class="display-4">Welcome</h1>

@@ -3,6 +3,13 @@
     ViewData["Title"] = "Pay";
 }
 
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["Message"]
+    </div>
+}
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -53,11 +60,6 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Öde</button>
                             </div>
-
-                            @if (ViewData["ErrorMesaj"] != null)
-                            {
-                                <h1>@ViewData["ErrorMessage"]</h1>
-                            }
 
                         </div>
                     </div>

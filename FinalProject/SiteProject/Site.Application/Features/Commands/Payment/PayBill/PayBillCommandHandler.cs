@@ -8,19 +8,22 @@ using RabbitMQ.Client;
 using System.Text.Json;
 using Site.Domain.Dtos;
 using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Site.Application.Features.Commands.Payment.PayBill
 {
     public class PayBillCommandHandler : IRequestHandler<PayBillCommand, string>
     {
         private readonly IBillPaymentRepository _billPaymentRepository;
+        private readonly IDistributedCache _distributedCache;
         private readonly PayBillValidator _validator;
         private readonly ConnectionFactory factory;
         private readonly IConnection connection;
 
-        public PayBillCommandHandler(IBillPaymentRepository billPaymentRepository)
+        public PayBillCommandHandler(IBillPaymentRepository billPaymentRepository, IDistributedCache distributedCache)
         {
             _billPaymentRepository = billPaymentRepository;
+            _distributedCache = distributedCache;
             _validator = new PayBillValidator();
 
             factory = new ConnectionFactory()
@@ -72,6 +75,9 @@ namespace Site.Application.Features.Commands.Payment.PayBill
             var bill = _billPaymentRepository.GetBillByUserIdAndMonth(request.UserId, request.Month);
 
             var restOfDept = bill.TotalDept - request.Pay;
+
+            await _distributedCache.RemoveAsync("GetBill");
+            await _distributedCache.RemoveAsync("GetAllBills");
 
             if (restOfDept == 0)
             {

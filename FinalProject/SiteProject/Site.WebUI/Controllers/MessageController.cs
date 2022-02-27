@@ -13,6 +13,11 @@ namespace Site.WebUI.Controllers
     {
         public async Task<IActionResult> Index()
         {
+            if (TempData["Message"] != null)
+            {
+                ViewData["Message"] = TempData["Message"];
+            }
+
             var jwt = Request.Cookies["jwt"];
 
             var token = jwt;
@@ -23,7 +28,7 @@ namespace Site.WebUI.Controllers
 
             if (jwt == null)
             {
-                ViewData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
+                TempData["ErrorMessage"] = "İşlem yapmaya yetkiniz yok!";
                 return RedirectToAction("Index", "Home");
             }
             
@@ -48,7 +53,7 @@ namespace Site.WebUI.Controllers
 
             var result = await MyHttpClient.HttpCommand("POST", jsonData, "Messages", jwt);
 
-            ViewData["Message"] = result;
+            TempData["Message"] = result;
 
             return RedirectToAction("Index");
         }

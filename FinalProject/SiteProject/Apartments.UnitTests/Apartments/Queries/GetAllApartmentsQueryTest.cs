@@ -30,12 +30,14 @@ namespace Apartments.UnitTests.Apartments.Queries
             });
 
             _mapper = new Mapper(mapperConfig);
+
+            // _distributedCache
         }
 
         [Fact]
         public async Task GetAllApartments_ShouldReturnApartmentModel()
         {
-            //var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper,_distributedCache);
+            //var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper, _distributedCache);
             //var result = await handler.Handle(new GetAllApartmentsQuery(), CancellationToken.None);
 
             //result.ShouldBeOfType<List<ApartmentModel>>();

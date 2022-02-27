@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PaymentService.Application.Consumer;
 using PaymentService.Application.Contracts.Persistence.Repositories.Commons;
 using PaymentService.Application.Contracts.Persistence.Repositories.CreditCards;
 using PaymentService.Application.Settings;
@@ -22,6 +23,7 @@ namespace PaymentService.Infrastructure
 
             services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddTransient<ICreditCardRepository, CreditCardRepository>();
+            services.AddTransient<IRabbitMqConsumer, RabbitMqConsumerHandler>();
 
             return services;
         }
