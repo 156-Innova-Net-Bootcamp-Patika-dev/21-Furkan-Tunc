@@ -20,6 +20,7 @@ namespace Site.Infrastructure.Contracts.Persistence
         {
             builder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             builder.Entity<Message>().Property(m => m.Read).HasDefaultValue(false);
+            builder.Entity<Bill>().Property(b => b.TotalDept).HasComputedColumnSql("(Electric + Water + NaturalGas + Dues)");
             base.OnModelCreating(builder);
         }
     }
