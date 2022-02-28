@@ -33,7 +33,7 @@ namespace Messages.UnitTests.Messages.Queries
         [Fact]
         public async Task GetAllMessage_Should_ReturnMessageDto()
         {
-
+            
         }
     }
 }

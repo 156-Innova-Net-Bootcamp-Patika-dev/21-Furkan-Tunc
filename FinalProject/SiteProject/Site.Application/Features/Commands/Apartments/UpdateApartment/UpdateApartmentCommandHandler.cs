@@ -39,6 +39,7 @@ namespace Site.Application.Features.Commands.Apartments.UpdateApartment
             apartment.Owner = request.Owner != default ? request.Owner : apartment.Owner;
             apartment.Status = request.Status != default ? request.Status : apartment.Status;
             apartment.Type = request.Type != default ? request.Type : apartment.Type;
+            apartment.UserId = request.UserId != default ? request.UserId : apartment.UserId;
 
             await _apartmentRepository.UpdateAsync(apartment);
             await _distributedCache.RemoveAsync("GetApartment");

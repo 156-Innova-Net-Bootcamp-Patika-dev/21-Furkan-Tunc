@@ -35,7 +35,7 @@ namespace Apartments.UnitTests.Apartments.Queries
         }
 
         [Fact]
-        public async Task GetAllApartments_ShouldReturnApartmentModel()
+        public async Task WhenGetAllApartments_ShouldReturnListApartmentModel()
         {
             var handler = new GetAllApartmentsQueryHandler(_mocks.Object, _mapper, (IDistributedCache)_distributedCache);
 

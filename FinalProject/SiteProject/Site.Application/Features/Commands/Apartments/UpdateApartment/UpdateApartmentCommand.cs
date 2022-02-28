@@ -11,8 +11,6 @@ namespace Site.Application.Features.Commands.Apartments.UpdateApartment
         public byte Floor { get; set; }
         public byte ApartmentNumber { get; set; }
         public string Owner { get; set; }
-        public int BillId { get; set; }
-        public int DuesId { get; set; }
         public int UserId { get; set; }
     }
 }
