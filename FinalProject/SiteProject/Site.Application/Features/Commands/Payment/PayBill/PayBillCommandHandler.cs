@@ -9,20 +9,23 @@ using System.Text.Json;
 using Site.Domain.Dtos;
 using System.Text;
 using Microsoft.Extensions.Caching.Distributed;
+using Site.Application.Contracts.Persistence.Repositories.Bills;
 
 namespace Site.Application.Features.Commands.Payment.PayBill
 {
     public class PayBillCommandHandler : IRequestHandler<PayBillCommand, string>
     {
         private readonly IBillPaymentRepository _billPaymentRepository;
+        private readonly IBillRepository _billRepository;
         private readonly IDistributedCache _distributedCache;
         private readonly PayBillValidator _validator;
         private readonly ConnectionFactory factory;
         private readonly IConnection connection;
 
-        public PayBillCommandHandler(IBillPaymentRepository billPaymentRepository, IDistributedCache distributedCache)
+        public PayBillCommandHandler(IBillPaymentRepository billPaymentRepository, IBillRepository billRepository, IDistributedCache distributedCache)
         {
             _billPaymentRepository = billPaymentRepository;
+            _billRepository = billRepository;
             _distributedCache = distributedCache;
             _validator = new PayBillValidator();
 
@@ -39,7 +42,6 @@ namespace Site.Application.Features.Commands.Payment.PayBill
         public async Task<string> Handle(PayBillCommand request, CancellationToken cancellationToken)
         {
             await _validator.ValidateAndThrowAsync(request);
-
 
             CreditCardDto creditCard = new CreditCardDto();
             creditCard.UserId = request.UserId;
@@ -70,11 +72,13 @@ namespace Site.Application.Features.Commands.Payment.PayBill
                 );
             }
 
-
-
             var bill = _billPaymentRepository.GetBillByUserIdAndMonth(request.UserId, request.Month);
 
             var restOfDept = bill.TotalDept - request.Pay;
+
+            var updateBill = await _billRepository.GetByIdAsync(bill.BillId);
+            updateBill.TotalDept = updateBill.TotalDept - request.Pay;
+            await _billRepository.UpdateAsync(updateBill);
 
             await _distributedCache.RemoveAsync("GetBill");
             await _distributedCache.RemoveAsync("GetAllBills");
